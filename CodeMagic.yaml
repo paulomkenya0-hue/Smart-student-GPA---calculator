@@ -1,23 +1,45 @@
 workflows:
   android-workflow:
-    name: Android Build
+    name: Smart GPA Calculator Build
     environment:
       groups:
         - keystore_credentials
       vars:
         PACKAGE_NAME: "com.paulomkenya.smartgpacalculator"
+        APP_NAME: "Smart GPA Calculator"
       flutter: stable
       xcode: latest
     scripts:
+      - name: Clean previous build
+        script: |
+          flutter clean
+          rm -rf assets
+      
       - name: Get Flutter packages
         script: flutter pub get
+      
+      - name: Generate App Icons from PNG
+        script: |
+          echo "Generating launcher icons..."
+          flutter pub run flutter_launcher_icons:main
+          echo "Generating splash screen..."
+          flutter pub run flutter_native_splash:create
+      
       - name: Build Android APK
         script: flutter build apk --release
+      
       - name: Build Android App Bundle
         script: flutter build appbundle --release
+      
+      - name: Verify icons were created
+        script: |
+          echo "Checking if icons were generated..."
+          ls -la android/app/src/main/res/mipmap-*/ic_launcher.png || true
+    
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk
       - build/app/outputs/bundle/release/app-release.aab
+    
     publishing:
       email:
         recipients:
