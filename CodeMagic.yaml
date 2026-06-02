@@ -1,0 +1,27 @@
+workflows:
+  android-workflow:
+    name: Android Build
+    environment:
+      groups:
+        - keystore_credentials
+      vars:
+        PACKAGE_NAME: "com.paulomkenya.smartgpacalculator"
+      flutter: stable
+      xcode: latest
+    scripts:
+      - name: Get Flutter packages
+        script: flutter pub get
+      - name: Build Android APK
+        script: flutter build apk --release
+      - name: Build Android App Bundle
+        script: flutter build appbundle --release
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
+      - build/app/outputs/bundle/release/app-release.aab
+    publishing:
+      email:
+        recipients:
+          - developer@paulomkenya.com
+        notify:
+          success: true
+          failure: true
