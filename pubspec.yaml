@@ -1,0 +1,39 @@
+name: smart_gpa_calculator
+description: Smart GPA Calculator - A modern GPA calculator for students
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.2.2
+  flutter_slidable: ^3.0.1
+  intl: ^0.18.1
+  google_fonts: ^6.1.0
+  animated_text_kit: ^4.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/images/
+    
+  fonts:
+    - family: AppIcons
+      fonts:
+        - asset: assets/fonts/app_icons.ttf
+
+flutter_icons:
+  android: true
+  ios: false
+  image_path: "assets/icon/app_icon.png"
+  adaptive_icon_background: "#6200EE"
+  adaptive_icon_foreground: "assets/icon/foreground.png"
